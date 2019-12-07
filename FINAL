@@ -1,0 +1,96 @@
+<html>
+<head>
+    <style>
+        h1 {
+            color: white;
+            font-size: 200px;
+            font-family: Verdana;
+            text-align: center;
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            margin-right: -50%;
+            transform: translate(-50%, -50%);
+        }
+
+        body {background-color: black;}
+
+        .shift {min-height: 65vh;}
+
+        h2 {
+            color: white;
+            text-align: center;
+            font-size: 50px;
+            font-family: Verdana;
+        }
+
+        p{
+            color: white;
+            text-align: center;
+            font-size: 20px;
+            font-family: Verdana;
+        }
+        h3{
+            color: white;
+            text-align: right;
+            font-size: 15px;
+            font-family Verdana;
+        }
+    </style>
+</head>
+
+<body>
+<div class = 'shift'>
+    <h1 contenteditable id="head">HELLO WORLD</h1>
+</div>
+
+<h2> Personalise!</h2>
+
+<p> Click on "Hello World" to edit text</p>
+
+<center> <div class = personal>
+    <select id="tColour" onchange="process()">
+        <option>Change the Text Colour!</option>
+        <option value="White">White</option>
+        <option value="Pink">Pink</option>
+        <option value="Aqua">Aqua</option>
+        <option value="Purple">Purple</option>
+        <option value="Yellow">Yellow</option>
+        <option value="Gray">Gray</option>
+        <option value="Navy">Navy</option>
+    </select>
+</div> </center>
+
+<h3>Created by Kelly Chen and Rebecca Lai as part of MLH Youth Hax 2019</h3>
+
+<script>
+    function process() {
+        var x = document.getElementById("tColour").value;
+        document.getElementById("head").style.color = x; // set header colour to chosen one
+    }
+</script>
+
+<script>
+    const shift = document.querySelector('.shift');
+    const text = shift.querySelector('h1');
+    const move = 50; // shadow shifting length
+    function shadow(a) {
+        const { offsetWidth: width, offsetHeight: height } = shift; // coordinate shift
+        let { offsetX: x, offsetY: y } = a;
+        if (this !== a.target) { // shifting dimentions
+            x = x + a.target.offsetLeft;
+            y = y + a.target.offsetTop;
+        }
+        const xMove = Math.round((x / width * move) - (move / 2));
+        const yMove = Math.round((y / height * move) - (move / 2));
+        text.style.textShadow = `
+               ${xMove * 1}px ${yMove * -1}px 0 rgba(128, 255, 255,0.65),
+               ${xMove * -1}px ${yMove * 1}px 0 rgba(255, 51, 51, 0.65),
+               ${yMove * 1}px ${xMove * -1}px 0 rgba(204, 0, 204, 0.65),
+               ${yMove * -1}px ${xMove * 1}px 0 rgba(0,122, 204,0.65)
+               `; // changing position and colour of shadows
+    }
+    shift.addEventListener('mousemove', shadow); // if mouse moves, do function shift
+</script>
+</body>
+</html>
